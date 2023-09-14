@@ -46,7 +46,7 @@ public class SimplePriorityQueueTests {
 
     @Test
     public void testEmptyIsEmpty() {
-        assertTrue(simplePriorityQueue.isEmpty());
+        Assertions.assertTrue(simplePriorityQueue.isEmpty());
         simplePriorityQueue.insert(5);
         assertFalse(simplePriorityQueue.isEmpty());
     }
@@ -94,7 +94,6 @@ public class SimplePriorityQueueTests {
         Integer[] temp = intPriorityQueue.getQueue();
         assertEquals(3, (int) temp[18]);
     }
-
     @Test
     public void testIntInsertAll() {
 

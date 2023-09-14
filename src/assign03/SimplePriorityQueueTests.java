@@ -2,11 +2,7 @@ package assign03;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import assign03.SimplePriorityQueue;
 import org.junit.jupiter.api.BeforeEach;
-
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static org.junit.Assert.*;
 

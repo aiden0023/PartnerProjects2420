@@ -46,23 +46,20 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 
     @Override
     public void insert(E item) {
-        /*if (size == queue.length) {
+        if (size == queue.length) {
             this.enlargeQueue();
         }
+
         if (queue[queue.length-1] == null) {
             queue[queue.length-1] = item;
         } else {
-            int index = 0;
-            for (int i = 0; i < queue.length; i++) {
-                int temp = compare(item, queue[i]);
-                if (temp == -1 || temp == 0) {
-                    index = i-1;
-                }
+            int index = binarySearch(item);
+            E[] tempArray = (E[]) new Object[queue.length];
+            for (int i = queue.length-1; i > index; i--) {
+                tempArray[i] = queue[i];
             }
 
-            //make a temp array in order to move int index down to make room to insert item
-            E[] tempArray = (E[]) new Object[queue.length];
-            for (int i = index; i < 0; i--) {
+            for (int i = index; i >= 0; i--) {
                 if (queue[i] == null) {
                     break;
                 }
@@ -71,19 +68,6 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
             queue = tempArray;
             queue[index] = item;
         }
-        size++;*/
-
-        //add binary search to look for same value
-        int index = binarySearch(item);
-        E[] tempArray = (E[]) new Object[queue.length];
-        for (int i = index; i < 0; i--) {
-            if (queue[i] == null) {
-                break;
-            }
-            tempArray[i-1] = queue[i];
-        }
-        queue = tempArray;
-        queue[index] = item;
         size++;
     }
 
@@ -94,7 +78,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 
     @Override
     public boolean contains(E item) {
-        return queue[binarySearch(item)] == item;
+        return queue[binarySearch(item)].equals(item);
     }
 
     @Override
@@ -113,12 +97,12 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
         size = 0;
     }
 
-    private int binarySearch(E target) { //FIX LATER
-        int low = 0;
+    private int binarySearch(E target) {
+        int low = queue.length-1-size;
         int high = queue.length-1;
         int mid = 0;
         while (low <= high) {
-            mid = (low/2) + (high/2);
+            mid = ((high - low)/2) + low; // (low/2) + (high/2);
             if (queue[mid] == null) {
                 low = mid+1;
                 continue;
@@ -127,7 +111,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
             if (cmpOutput < 0) {
                 low = mid+1;
             } else if (cmpOutput > 0) {
-                high = mid+1;
+                high = mid-1;
             } else {
                 return mid;
             }
@@ -145,7 +129,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 
     private void advanceQueue() {
         E[] tempArray = (E[]) new Object[queue.length];
-        for (int i = 0; i < queue.length; i++) {
+        for (int i = 0; i < size; i++) {
             tempArray[i+1] = queue[i];
         }
         queue = tempArray;
@@ -153,8 +137,8 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 
     private void enlargeQueue() {
         E[] tempArray = (E[]) new Object[queue.length*2];
-        int j = 0;
-        for (int i = queue.length; i < 0; i--) {
+        int j = 1;
+        for (int i = size-1; i >= 0; i--) {
             tempArray[tempArray.length-j] = queue[i];
             j++;
         }

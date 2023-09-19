@@ -10,11 +10,11 @@ public class PriorityQueueTimer {
 
 	// Pick appropriate values for your analysis
 //	public static int LOOP_COUNT = 1000;
-	public static int LOOP_COUNT = 100;
+	public static int LOOP_COUNT = 500;
 //	public static int STEP_SIZE = 40000;
-	public static int STEP_SIZE = 100000;
+	public static int STEP_SIZE = 20000;
 //	public static int ROW_COUNT = 50;
-	public static int ROW_COUNT = 20;
+	public static int ROW_COUNT = 25;
 
 	public static void main(String[] args) {
 		ArrayList<Integer> arraySizes = new ArrayList<Integer>();
@@ -55,20 +55,23 @@ public class PriorityQueueTimer {
 		
 		// Do the computation loopCount times
 		for (int i = 0; i < LOOP_COUNT; i++) {
-			//Integer element = RANDOM.nextInt(size);
-			spq.findMax();
+			Integer element = RANDOM.nextInt(size);
+			spq.insert(element);
+			spq.deleteMax();
 		}
 		
 		// End timer
 		midTime = System.nanoTime();
-
-		for(int i = 0; i < LOOP_COUNT; i++) {
-
+		
+		// Compute the time taken by looping and extra computations
+		for (int i = 0; i < LOOP_COUNT; i++) {
+			Integer element = RANDOM.nextInt(size);
+			spq.deleteMax();
 		}
 		stopTime = System.nanoTime();
-
+		
 		// Return average time
-		return ((midTime - startTime) - (stopTime - midTime)) / (double) LOOP_COUNT;
+		return (2 * midTime - startTime - stopTime) / (double)LOOP_COUNT;
 	}
 	
 	/**

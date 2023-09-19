@@ -1,6 +1,7 @@
 package assign04;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,12 +20,33 @@ public class LargestNumberSolver {
     public static BigInteger findLargestNumber(Integer[] arr) {
         if (arr.length == 0) {
             return BigInteger.ZERO;
+
         }
+//temp array to hold BigInteger representations
+                BigInteger[] bigIntArr = new BigInteger[arr.length];
+                for (int i = 0; i < arr.length; i++) {
+                    bigIntArr[i] = BigInteger.valueOf(arr[i]);
+                }
+//sorts BigIntegers in decending order
+            Comparator<BigInteger> customComparator = (num1, num2) -> {
+                String concat1 = num1.toString() + num2.toString();
+                String concat2 = num2.toString() + num1.toString();
+                return concat2.compareTo(concat1); // Compare in reverse order
+            };
+//sorts them without altering array
+                BigInteger[] sortedArr = Arrays.copyOf(bigIntArr, bigIntArr.length);
+                insertionSort(sortedArr, customComparator);
 
-        //FINISH METHOD
+//
+                StringBuilder largestNumberStr = new StringBuilder();
+                for (BigInteger num : sortedArr) {
+                    largestNumberStr.append(num);
+                }
+//converts to BigInteger and returns
+                return new BigInteger(largestNumberStr.toString());
 
-        return null; //EMPTY RETURN STATEMENT
-    }
+            }
+
 
     public static int findLargestInt(Integer[] arr) throws OutOfRangeException {
         return 0; //EMPTY RETURN STATEMENT

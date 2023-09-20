@@ -7,14 +7,23 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests for the SimplePriorityQueue class
+ *
+ * @author Aiden Fornalski and Henry Sippel
+ * @version 2023-09-07
+ */
+
 public class SimplePriorityQueueTests {
 
+    Comparator<String> compString = Comparator.comparing(String::toString);
     private SimplePriorityQueue<Integer> simplePriorityQueue = new SimplePriorityQueue<>();
     private SimplePriorityQueue<Integer> intPriorityQueue = new SimplePriorityQueue<>();
-    private SimplePriorityQueue<String> stringPriorityQueue = new SimplePriorityQueue<>();
+    private SimplePriorityQueue<String> stringPriorityQueue = new SimplePriorityQueue<>(compString);
     ArrayList<Integer> intColl = new ArrayList<>();
 
 
@@ -132,9 +141,9 @@ public class SimplePriorityQueueTests {
 
     @Test
     public void testStringInsert() {
-        stringPriorityQueue.insert("water");
+        stringPriorityQueue.insert("dad");
         Object[] temp = stringPriorityQueue.getQueue();
-        assertEquals("water", temp[16]);
+        assertEquals("dad", temp[17]);
     }
 
     @Test

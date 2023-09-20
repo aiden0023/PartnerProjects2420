@@ -214,7 +214,7 @@ public class LargestNumberSolverTests {
     //readFile() tests
     @Test
     public void readFileExceptionTest() {
-        assertThrows(FileNotFoundException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             readFile("foo");
         });
     }

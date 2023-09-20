@@ -164,9 +164,14 @@ public class LargestNumberSolver {
      * @return
      * @throws FileNotFoundException
      */
-    public static List<Integer[]> readFile(String filename) throws FileNotFoundException {
+    public static List<Integer[]> readFile(String filename) {
         ArrayList<Integer[]> list = new ArrayList<>();
-        Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)));
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new BufferedReader(new FileReader(filename)));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] temp = line.split(" ");

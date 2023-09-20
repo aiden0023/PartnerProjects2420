@@ -36,8 +36,7 @@ public class LargestNumberSolver {
             return BigInteger.ZERO;
 
         }
-        //temp array to hold BigInteger representations
-        BigInteger[] bigIntArr = new BigInteger[arr.length];
+        BigInteger[] bigIntArr = new BigInteger[arr.length]; //temp array to hold BigInteger representations
         for (int i = 0; i < arr.length; i++) {
             bigIntArr[i] = BigInteger.valueOf(arr[i]);
         }
@@ -45,18 +44,16 @@ public class LargestNumberSolver {
         Comparator<BigInteger> customComparator = (num1, num2) -> {
             String concat1 = num1.toString() + num2.toString();
             String concat2 = num2.toString() + num1.toString();
-            return concat2.compareTo(concat1); // Compare in reverse order
+            return concat2.compareTo(concat1); //compare in reverse order
         };
 
         insertionSort(bigIntArr, customComparator);
 
-        //
-        StringBuilder largestNumberStr = new StringBuilder();
+        StringBuilder largestNumberStr = new StringBuilder(); //converts largestNumberStr to a string
         for (BigInteger num : bigIntArr) {
             largestNumberStr.append(num);
         }
-        //converts to BigInteger and returns
-        return new BigInteger(largestNumberStr.toString());
+        return new BigInteger(largestNumberStr.toString()); //converts to BigInteger and returns
 
     }
 
@@ -102,7 +99,7 @@ public class LargestNumberSolver {
         if (value.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0 || value.compareTo(BigInteger.valueOf(Long.MIN_VALUE)) < 0) {
             throw new OutOfRangeException("int");
         }
-        return Integer.parseInt(largestNumberStr.toString());
+        return Long.parseLong(largestNumberStr.toString());
     }
 
     /**
@@ -159,10 +156,12 @@ public class LargestNumberSolver {
     }
 
     /**
+     * Reads a formatted file of integer arrays and converts it to a list of integer
+     * arrays.
      *
-     * @param filename
-     * @return
-     * @throws FileNotFoundException
+     * @param filename - name of the file
+     * @return - a list of integer arrays
+     * @throws FileNotFoundException - when the filename does not exist
      */
     public static List<Integer[]> readFile(String filename) {
         ArrayList<Integer[]> list = new ArrayList<>();
@@ -186,6 +185,13 @@ public class LargestNumberSolver {
     }
 
     //HELPER METHODS
+
+    /**
+     * Builds a string of the largest number from an integer array.
+     *
+     * @param arr - integer array to build the largest number from
+     * @return - a string of the largest number
+     */
     private static StringBuilder buildLargestNumber(Integer[] arr) {
         Comparator<Integer> cmp = (num1, num2) -> {
             String concat1 = num1.toString() + num2.toString();

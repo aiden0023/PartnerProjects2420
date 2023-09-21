@@ -1,21 +1,22 @@
 package assign04;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.function.Executable;
 
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Random;
 
 import static assign04.LargestNumberSolver.*;
 import static org.junit.Assert.*;
 
+/**
+ * A tester class to test the methods in the LargestNumberSolver class.
+ *
+ * @author Aiden Fornalski and Henry Sippel
+ * @version 2023-09-21
+ */
 public class LargestNumberSolverTests {
 
     private Integer[] randSmallIntArr = new Integer[5];
@@ -267,6 +268,6 @@ public class LargestNumberSolverTests {
 
     @Test
     public void readFileTest() {
-       // assertEquals(903, readFile("src/assign04/integers.txt").size());
+        assertEquals(903, readFile("src/assign04/integers.txt").size());
     }
 }

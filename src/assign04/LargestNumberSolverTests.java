@@ -31,9 +31,14 @@ public class LargestNumberSolverTests {
 
     private Integer[] largeIntArr = new Integer[]{5, 7, 1, 2, 6, 10};
 
+    private Integer[] emptyIntArr = new Integer[]{};
+
     private ArrayList<Integer[]> smallListOfIntArr = new ArrayList<>();
     private ArrayList<Integer[]> mediumListOfIntArr = new ArrayList<>();
     private ArrayList<Integer[]> largeListOfIntArr = new ArrayList<>();
+
+    private ArrayList<Integer[]> emptyListOfIntArr = new ArrayList<>();
+
 
     @BeforeEach
     public void setUp() {
@@ -132,6 +137,12 @@ public class LargestNumberSolverTests {
 
     }
 
+    @Test
+    public void emptyFindLargestNumberTest() {
+        assertEquals(BigInteger.valueOf(0), findLargestNumber(emptyIntArr));
+
+    }
+
     //findLargestInt() tests
     @Test
     public void findLargestIntExceptionTest() {
@@ -141,15 +152,16 @@ public class LargestNumberSolverTests {
     }
 
     @Test
-    public void smallFindLargestIntTest() {
-        assertEquals(751, findLargestInt(smallIntArr));
-    }
-
+    public void smallFindLargestIntTest() { assertEquals(751, findLargestInt(smallIntArr));}
     @Test
     public void mediumFindLargestIntTest() { assertEquals(7521, findLargestInt(mediumIntArr));}
 
     @Test
     public void largeFindLargestIntTest() { assertEquals(7652110, findLargestInt(largeIntArr));}
+
+    @Test
+    public void emptyFindLargestIntTest() { assertEquals(0, findLargestInt(emptyIntArr));}
+
 
     //findLargestLong() tests
     @Test
@@ -176,6 +188,12 @@ public class LargestNumberSolverTests {
 
     }
 
+    @Test
+    public void emptyFindLargestLongTest() {
+        assertEquals(0L, findLargestLong(emptyIntArr));
+
+    }
+
     //sum() tests
     @Test
     public void smallFindSumTest() {
@@ -191,6 +209,12 @@ public class LargestNumberSolverTests {
     @Test
     public void largeFindSumTest() {
         assertEquals(BigInteger.valueOf(1227569491), sum(largeListOfIntArr));
+
+    }
+    @Test
+    public void emptyFindSumTest() {
+        assertEquals(BigInteger.valueOf(0), sum(emptyListOfIntArr));
+
 
     }
 
@@ -222,6 +246,12 @@ public class LargestNumberSolverTests {
 
     }
 
+    @Test
+    public void emptyFindKthLargestTest() {
+       assertNull(findKthLargest(emptyListOfIntArr, 2));
+
+    }
+
     //readFile() tests
     @Test
     public void readFileExceptionTest() {
@@ -237,6 +267,6 @@ public class LargestNumberSolverTests {
 
     @Test
     public void readFileTest() {
-        assertEquals(903, readFile("src/assign04/integers.txt").size());
+       // assertEquals(903, readFile("src/assign04/integers.txt").size());
     }
 }

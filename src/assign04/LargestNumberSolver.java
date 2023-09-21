@@ -109,6 +109,9 @@ public class LargestNumberSolver {
      * @return - sum of the largest numbers
      */
     public static BigInteger sum(List<Integer[]> list) {
+        if (list.size() == 0) {
+            return BigInteger.ZERO;
+        }
         BigInteger[] tempArr = new BigInteger[list.size()];
         for (int i = 0; i < list.size(); i++) {
             tempArr[i] = findLargestNumber(list.get(i));
@@ -131,6 +134,10 @@ public class LargestNumberSolver {
      * @throws IllegalArgumentException - if k is out of bounds of list
      */
     public static Integer[] findKthLargest(List<Integer[]> list, int k) throws IllegalArgumentException {
+        if (list.size() == 0) {
+            return null;
+        }
+
         if (k < 0 || k > list.size()-1) {
             throw new IllegalArgumentException();
         }

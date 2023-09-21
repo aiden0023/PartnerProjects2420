@@ -21,9 +21,16 @@ public class LargestNumberSolverTests {
     private Integer[] randSmallIntArr = new Integer[5];
     private Integer[] randMediumIntArr = new Integer[30];
     private Integer[] randLargeIntArr = new Integer[100];
+
     private Integer[] outOfRangeIntArr = new Integer[11];
+
     private Integer[] outOfRangeLongArr = new Integer[20];
-    private Integer[] smallIntArr = new Integer[]{5, 7, 1, 2, 91};
+    private Integer[] smallIntArr = new Integer[]{5, 7, 1};
+
+    private Integer[] mediumIntArr = new Integer[]{5, 7, 1, 2};
+
+    private Integer[] largeIntArr = new Integer[]{5, 7, 1, 2, 6, 10};
+
     private ArrayList<Integer[]> smallListOfIntArr = new ArrayList<>();
     private ArrayList<Integer[]> mediumListOfIntArr = new ArrayList<>();
     private ArrayList<Integer[]> largeListOfIntArr = new ArrayList<>();
@@ -109,16 +116,19 @@ public class LargestNumberSolverTests {
     //findLargestNumber() tests
     @Test
     public void smallFindLargestNumberTest() {
-        assertEquals(BigInteger.valueOf(917521), findLargestNumber(smallIntArr));
+        assertEquals(BigInteger.valueOf(751), findLargestNumber(smallIntArr));
     }
 
     @Test
     public void mediumFindLargestNumberTest() {
+        assertEquals(BigInteger.valueOf(7521), findLargestNumber(mediumIntArr));
+
 
     }
 
     @Test
     public void largeFindLargestNumberTest() {
+        assertEquals(BigInteger.valueOf(7652110), findLargestNumber(largeIntArr));
 
     }
 
@@ -132,18 +142,14 @@ public class LargestNumberSolverTests {
 
     @Test
     public void smallFindLargestIntTest() {
-        assertEquals(917521, findLargestInt(smallIntArr));
+        assertEquals(0, findLargestInt(smallIntArr));
     }
 
     @Test
-    public void mediumFindLargestIntTest() {
-
-    }
+    public void mediumFindLargestIntTest() { assertEquals(0, findLargestInt(mediumIntArr));}
 
     @Test
-    public void largeFindLargestIntTest() {
-
-    }
+    public void largeFindLargestIntTest() { assertEquals(0, findLargestInt(largeIntArr));}
 
     //findLargestLong() tests
     @Test
@@ -155,16 +161,18 @@ public class LargestNumberSolverTests {
 
     @Test
     public void smallFindLargestLongTest() {
-        assertEquals(917521, findLargestLong(smallIntArr));
+        assertEquals(0, findLargestLong(smallIntArr));
     }
 
     @Test
     public void mediumFindLargestLongTest() {
+        assertEquals(0, findLargestLong(mediumIntArr));
 
     }
 
     @Test
     public void largeFindLargestLongTest() {
+        assertEquals(0, findLargestLong(largeIntArr));
 
     }
 
@@ -176,11 +184,13 @@ public class LargestNumberSolverTests {
 
     @Test
     public void mediumFindSumTest() {
+        assertEquals(BigInteger.valueOf(454120), sum(mediumListOfIntArr));
 
     }
 
     @Test
     public void largeFindSumTest() {
+        assertEquals(BigInteger.valueOf(454120), sum(largeListOfIntArr));
 
     }
 
@@ -208,6 +218,7 @@ public class LargestNumberSolverTests {
 
     @Test
     public void largeFindKthLargestTest() {
+        assertEquals(mediumListOfIntArr.get(2), findKthLargest(largeListOfIntArr, 1));
 
     }
 
@@ -221,6 +232,6 @@ public class LargestNumberSolverTests {
 
     @Test
     public void readFileTest() {
-
+        assertEquals("integers.txt", readFile("integers.txt"));
     }
 }

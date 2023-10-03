@@ -14,9 +14,9 @@ public class LargestNumberSolverTimer {
 //	public static int LOOP_COUNT = 1000;
 	public static int LOOP_COUNT = 100;
 //	public static int STEP_SIZE = 40000;
-	public static int STEP_SIZE = 100;
+	public static int STEP_SIZE = 1000;
 //	public static int ROW_COUNT = 50;
-	public static int ROW_COUNT = 10;
+	public static int ROW_COUNT = 20;
 
 	public static void main(String[] args) {
 		ArrayList<Integer> arraySizes = new ArrayList<Integer>();
@@ -42,12 +42,11 @@ public class LargestNumberSolverTimer {
 	}
 	
 	public static double computeAverageSortTime(int size) {
-		Random rand = new Random();
 		ArrayList<Integer[]> list = new ArrayList<>();
-		Integer[] arr = new Integer[10];
+		Integer[] arr = new Integer[5];
 		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < 10; j++) {
-				arr[j] = rand.nextInt(1000);
+			for (int j = 0; j < arr.length; j++) {
+				arr[j] = RANDOM.nextInt(1000);
 			}
 			list.add(arr);
 		}
@@ -62,7 +61,7 @@ public class LargestNumberSolverTimer {
 		
 		// Do the computation loopCount times
 		for (int i = 0; i < LOOP_COUNT; i++) {
-			findKthLargest(list, rand.nextInt(size));
+			findKthLargest(list, RANDOM.nextInt(size));
 		}
 		
 		// End timer

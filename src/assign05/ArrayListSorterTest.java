@@ -25,7 +25,15 @@ public class ArrayListSorterTest {
 
     @Test
     public void smallIntArrayListMergeSortTest() {
-        mergeSort(smallIntArrayList);
+        mergesort(smallIntArrayList);
+        for (int i = 0; i < smallIntArrayList.size()-1; i++) {
+            assertFalse("ArrayList not in order", smallIntArrayList.get(i) > smallIntArrayList.get(i+1));
+        }
+    }
+
+    @Test
+    public void smallIntArrayListQuickSortTest() {
+        quicksort(smallIntArrayList);
         for (int i = 0; i < smallIntArrayList.size()-1; i++) {
             assertFalse("ArrayList not in order", smallIntArrayList.get(i) > smallIntArrayList.get(i+1));
         }

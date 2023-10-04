@@ -2,23 +2,23 @@ package assign05;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.Random;
 
 public class ArrayListSorter {
 
     private static final int INSERTION_SORT_THRESHOLD = 6; // 7 or greater and JDK uses mergesort over insertion sort
 
-    public static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> arrayList) {
+    public static <T extends Comparable<? super T>> void mergesort(ArrayList<T> arrayList) {
         ArrayList<T> temp = new ArrayList<>(arrayList.size());
         for (int i = 0; i < arrayList.size(); i++) {
             temp.add(null); // Pre-allocate space for merging
         }
-        mergeSort(arrayList, temp, 0, arrayList.size() - 1);
+        mergesort(arrayList, temp, 0, arrayList.size() - 1);
     }
 
 
     public static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arrayList) {
-
+        quicksort(arrayList, 0, arrayList.size()-1);
     }
 
     public static ArrayList<Integer> generateAscending(int size) {
@@ -48,13 +48,13 @@ public class ArrayListSorter {
 
     //HELPER METHODS
 
-    private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> arrayList, ArrayList<T> temp, int left, int right) {
+    private static <T extends Comparable<? super T>> void mergesort(ArrayList<T> arrayList, ArrayList<T> temp, int left, int right) {
         if (right - left <= INSERTION_SORT_THRESHOLD) {
             insertionSort(arrayList, left, right);
         } else {
             int mid = (left + right) / 2;
-            mergeSort(arrayList, temp, left, mid);
-            mergeSort(arrayList, temp, mid + 1, right);
+            mergesort(arrayList, temp, left, mid);
+            mergesort(arrayList, temp, mid + 1, right);
             merge(arrayList, temp, left, mid, right);
         }
     }
@@ -95,7 +95,52 @@ public class ArrayListSorter {
         }
     }
 
-    private static <T extends Comparable<? super T>> void quickSort(ArrayList<T> arrayList, int low, int high) {
+    private static <T extends Comparable<? super T>> void quicksort(ArrayList<T> arrayList, int low, int high) {
+        if (low < high) {
+            int partitionIndex = partition(arrayList, low, high);
+            quicksort(arrayList, low, partitionIndex-1);
+            quicksort(arrayList, partitionIndex, high);
+        }
+    }
 
+    private static <T extends Comparable<? super T>> int partition(ArrayList<T> arrayList, int low, int high) {
+        T pivot = pivotRandom(arrayList); // THIS IS WHERE YOU SWITCH THE PIVOT METHOD
+
+        while (high >= low) {
+            while (arrayList.get(low).compareTo(pivot) < 0) {
+                low++;
+            }
+            while (pivot.compareTo(arrayList.get(high)) < 0) {
+                high++;
+            }
+
+            if (high >= low) {
+                swap(arrayList, low, high);
+                low++;
+                high--;
+            }
+        }
+        return low;
+    }
+
+    private static <T extends Comparable<? super T>> T pivotRandom(ArrayList<T> arrayList) {
+        Random rand = new Random();
+        return arrayList.get(rand.nextInt(arrayList.size()-1));
+    }
+
+    private static <T extends Comparable<? super T>> T pivotMedian(ArrayList<T> arraylist, int listSize) {
+        return null;
+    }
+
+    private static <T extends Comparable<? super T>> T pivotFirstElement(ArrayList<T> arrayList) {
+        ArrayList arr = new ArrayList();
+        return arrayList.get(arrayList.size() - arrayList.size()-1);
+    }
+
+    private static <T extends Comparable<? super T>> void swap(ArrayList<T> arrayList, int i, int j) {
+        T temp = arrayList.get(i);
+        arrayList.set(i, arrayList.get(j));
+        arrayList.set(j, temp);
     }
 }
+

@@ -1,11 +1,12 @@
 package assign05;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class ArrayListSorter {
 
-    private static final int INSERTION_SORT_THRESHOLD = 6; //7 or greater and JDK uses mergesort over insertion sort
+    private static final int INSERTION_SORT_THRESHOLD = 6; // 7 or greater and JDK uses mergesort over insertion sort
 
     public static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> arrayList) {
         ArrayList<T> temp = new ArrayList<>(arrayList.size());
@@ -29,7 +30,12 @@ public class ArrayListSorter {
     }
 
     public static ArrayList<Integer> generatePermuted(int size) {
-        return null;
+        ArrayList<Integer> arrayList = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            arrayList.add(i, i+1);
+        }
+        Collections.shuffle(arrayList);
+        return arrayList;
     }
 
     public static ArrayList<Integer> generateDescending(int size) {

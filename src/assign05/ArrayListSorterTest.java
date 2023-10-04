@@ -40,6 +40,11 @@ public class ArrayListSorterTest {
     }
 
     @Test
+    public void generatePermutedTest() {
+
+    }
+
+    @Test
     public void generateDescendingTest() {
         ArrayList<Integer> arrayList = generateDescending(20);
         for (int i = 0; i < arrayList.size(); i++) {

@@ -20,6 +20,26 @@ public class ArrayListSorter {
 
     }
 
+    public static ArrayList<Integer> generateAscending(int size) {
+        ArrayList<Integer> arrayList = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            arrayList.add(i, i+1);
+        }
+        return arrayList;
+    }
+
+    public static ArrayList<Integer> generatePermuted(int size) {
+        return null;
+    }
+
+    public static ArrayList<Integer> generateDescending(int size) {
+        ArrayList<Integer> arrayList = new ArrayList<>(size);
+        for (int i = size; i > 0; i--) {
+            arrayList.add(size-i, i);
+        }
+        return arrayList;
+    }
+
     //HELPER METHODS
 
     private static <T extends Comparable<? super T>> void mergeSort(ArrayList<T> arrayList, ArrayList<T> temp, int left, int right) {
@@ -57,14 +77,19 @@ public class ArrayListSorter {
         }
     }
 
-    //NEEDS TO BE FIXED
     private static <T extends Comparable<? super T>> void insertionSort(ArrayList<T> arrayList, int left, int right) {
-        for (int i = 1; i < arrayList.size(); i++) {
-            for (int j = i; j > 0 && arrayList.get(j).compareTo(arrayList.get(j-1)) < 0; j--) {
-                T temp = arrayList.get(j);
-                arrayList.set(j, arrayList.get(j-1));
-                arrayList.set(j-1, temp);
+        for (int i = left+1; i <= right; i++) {
+            T currentIndex = arrayList.get(i);
+            int j = i-1;
+            while (j >= left && arrayList.get(j).compareTo(currentIndex) > 0) {
+                arrayList.set(j+1, arrayList.get(j));
+                j--;
             }
+            arrayList.set(j+1, currentIndex);
         }
+    }
+
+    private static <T extends Comparable<? super T>> void quickSort(ArrayList<T> arrayList, int low, int high) {
+
     }
 }

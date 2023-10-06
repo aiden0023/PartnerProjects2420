@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class ArrayListSorter {
 
-    private static final int INSERTION_SORT_THRESHOLD = 6; // 7 or greater and JDK uses mergesort over insertion sort
+    private static final int INSERTION_SORT_THRESHOLD = 20; // Global variable for the threshold of insertion sort
 
     /**
      * Driver method for mergesort.
@@ -189,7 +189,7 @@ public class ArrayListSorter {
      * @param <T> - generic
      */
     private static <T extends Comparable<? super T>> int partition(ArrayList<T> arrayList, int low, int high) {
-        T pivot = pivotRandom(arrayList, low, high); // CHANGE PIVOT METHOD HERE
+        T pivot = pivotMedian(arrayList, low, high); // CHANGE PIVOT METHOD HERE
         while (high >= low) {
             while (arrayList.get(low).compareTo(pivot) < 0) { //if arrayList.get(low) < pivot
                 low++;

@@ -2,8 +2,7 @@ package assign05;
 
 import java.util.ArrayList;
 
-import static assign05.ArrayListSorter.generatePermuted;
-import static assign05.ArrayListSorter.mergesort;
+import static assign05.ArrayListSorter.*;
 
 public class ArrayListSorterTimer {
     public static void main(String[] args) {
@@ -20,11 +19,12 @@ public class ArrayListSorterTimer {
         ArrayList<Integer> problemSizes = new ArrayList<Integer>();
         ArrayList<Double> averageTimes = new ArrayList<Double>();
         for (int n = nMin; n <= nMax; n += nStep) {
+            ArrayList<Integer> arrayList = generateDescending(n);
             // We will generally want to run the timing test for N
             // multiple times to smooth out any abnormalities.
             // Number of times to run each test.
             // Larger values yield more reliable averages.
-            int loopCount = 100;
+            int loopCount = 200;
             // Now we run 100 timing tests for each value of N.
             // Variables to keep track of time in nanoseconds.
             long start, end, extra;
@@ -40,8 +40,8 @@ public class ArrayListSorterTimer {
             // do any setup
             // run the algorithm or method
             // do any cleanup
-                ArrayList<Integer> arrayList = generatePermuted(n);
-                mergesort(arrayList);
+                ArrayList<Integer> temp = arrayList;
+                quicksort(temp);
             }
             end = System.nanoTime();
             // so the total time elapsed is (end - start).
@@ -50,7 +50,7 @@ public class ArrayListSorterTimer {
             for (int l = 0; l < loopCount; l++) {
             // do same setup
             // do same cleanup
-                generatePermuted(n);
+                ArrayList<Integer> temp = arrayList;
             }
             extra = System.nanoTime();
             // Total time to run the test the specified number of times.

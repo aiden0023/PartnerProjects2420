@@ -16,19 +16,29 @@ public class GraphUtility {
 
 	public static <Type> boolean areConnected(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
 			throws IllegalArgumentException {
-		// FILL IN + ADD METHOD COMMENT
-		return false;
+		Graph<Type> graph = buildGraph(sources, destinations);
+		return graph.areConnected(srcData, dstData);
 	}
 
 	public static <Type> List<Type> shortestPath(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
 			throws IllegalArgumentException {
-		// FILL IN + ADD METHOD COMMENT
-		return null;
+		Graph<Type> graph = buildGraph(sources, destinations);
+		return graph.shortestPath(srcData, dstData);
 	}
 	
 	public static <Type> List<Type> sort(List<Type> sources, List<Type> destinations) throws IllegalArgumentException {
-		// FILL IN + ADD METHOD COMMENT
-		return null;
+		Graph<Type> graph = buildGraph(sources, destinations);
+		return graph.topologicalSort();
+	}
+
+	private static <Type> Graph<Type> buildGraph(List<Type> sources, List<Type> destinations) {
+		Graph<Type> graph = new Graph<>();
+		for (int i = 0; i < sources.size(); i++) {
+			graph.addVertex(sources.get(i));
+			graph.addVertex(destinations.get(i));
+			graph.addEdge(sources.get(i), destinations.get(i));
+		}
+		return graph;
 	}
 
 	/**

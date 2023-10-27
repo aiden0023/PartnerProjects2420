@@ -11,21 +11,20 @@ public class GraphTimer {
         // We will generally want to find runtimes at regular intervals of N
         // For example, N = 100000, 110000, 120000, 130000, ..., 200000
         // Smallest value of N.
-        int nMin = 100000;
+        int nMin = 10000;
         // Largest value of N.
-        int nMax = 200000;
+        int nMax = 20000;
         // Increment value for N.
-        int nStep = 10000;
+        int nStep = 1000;
         // Setup storage for problem sizes and average runtimes.
         ArrayList<Integer> problemSizes = new ArrayList<Integer>();
         ArrayList<Double> averageTimes = new ArrayList<Double>();
         for (int n = nMin; n <= nMax; n += nStep) {
-            generateRandomDotFile("graphTiming", n);
             // We will generally want to run the timing test for N
             // multiple times to smooth out any abnormalities.
             // Number of times to run each test.
             // Larger values yield more reliable averages.
-            int loopCount = 1000;
+            int loopCount = 100;
             // Now we run 100 timing tests for each value of N.
             // Variables to keep track of time in nanoseconds.
             long start, end, extra;
@@ -41,11 +40,21 @@ public class GraphTimer {
             // do any setup
             // run the algorithm or method
             // do any cleanup
-                Random rand = new Random();
                 ArrayList<String> sources = new ArrayList<>();
                 ArrayList<String> destinations = new ArrayList<>();
-                GraphUtility.buildListsFromDot("src/assign07/graphTiming", sources, destinations);
-                GraphUtility.areConnected(sources, destinations, "v" + rand.nextInt(n), "v" + rand.nextInt(n));
+                generateVertices(sources, destinations, n);
+                Random rng = new Random();
+                //GraphUtility.areConnected(sources, destinations, sources.get(rng.nextInt(n)), destinations.get(rng.nextInt(n)));
+                /*try {
+                    GraphUtility.shortestPath(sources, destinations, sources.get(rng.nextInt(n)), destinations.get(rng.nextInt(n)));
+                } catch (Exception e) {
+                    //ignore
+                }*/
+                try {
+                    GraphUtility.sort(sources, destinations);
+                } catch (Exception e) {
+                    //ignore
+                }
             }
             end = System.nanoTime();
             // so the total time elapsed is (end - start).
@@ -54,10 +63,10 @@ public class GraphTimer {
             for (int l = 0; l < loopCount; l++) {
             // do same setup
             // do same cleanup
-                Random rand = new Random();
                 ArrayList<String> sources = new ArrayList<>();
                 ArrayList<String> destinations = new ArrayList<>();
-                GraphUtility.buildListsFromDot("src/assign07/graphTiming", sources, destinations);
+                generateVertices(sources, destinations, n);
+                Random rng = new Random();
             }
             extra = System.nanoTime();
             // Total time to run the test the specified number of times.
@@ -106,16 +115,36 @@ public class GraphTimer {
         out.close();
     }
 
-    public Graph<String> generateGraph(int vertexCount) {
-        // generate a list of vertices
-        ArrayList<String> sources = new ArrayList<>();
-        ArrayList<String> destinations = new ArrayList<>();
-        for(int i = 0; i < vertexCount; i++) {
-            if (i%2 == 0) {
-                sources.add("v" + i);
-            } else {
-                destinations.add("v" + i);
+    public static Graph<Integer> generateGraph(int vertexCount) {
+        Graph<Integer> graph = new Graph<>();
+
+        // Add vertices labeled from 1 to vertexCount
+        for (int i = 1; i <= vertexCount; i++) {
+            graph.addVertex(i);
+        }
+
+        Random random = new Random();
+
+        int maxEdges = 2 * vertexCount;
+        int addedEdges = 0;
+
+        while (addedEdges < maxEdges) {
+            int source = random.nextInt(vertexCount) + 1;
+            int destination = random.nextInt(vertexCount) + 1;
+
+            if (source != destination && !graph.areConnected(source, destination)) {
+                graph.addEdge(source, destination);
+                addedEdges++;
             }
+        }
+        return graph;
+    }
+
+    public static void generateVertices(ArrayList<String> sources, ArrayList<String> destinations, int vertexCount) {
+        Random rng = new Random();
+        for (int i = 0; i < 2*vertexCount; i++) {
+            sources.add(("v"+rng.nextInt(vertexCount)));
+            destinations.add(("v"+rng.nextInt(vertexCount)));
         }
     }
 }

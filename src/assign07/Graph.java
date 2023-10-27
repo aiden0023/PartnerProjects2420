@@ -19,11 +19,22 @@ public class Graph<Type> {
         edges = new ArrayList<>();
     }
 
+    /**
+     * Adds a vertex to the graph.
+     *
+     * @param data - vertex name
+     */
     public void addVertex(Type data) {
         Vertex<Type> vertex = new Vertex<>(data);
         vertices.put(data, vertex);
     }
 
+    /**
+     * Adds an edge to the graph.
+     *
+     * @param srcData - source vertex name
+     * @param dstData - destination vertex name
+     */
     public void addEdge(Type srcData, Type dstData) {
         Vertex<Type> source = vertices.get(srcData);
         Vertex<Type> destination = vertices.get(dstData);

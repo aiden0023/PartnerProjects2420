@@ -1,5 +1,12 @@
 package assign07;
 
+/**
+ * A simple edge class that holds both the source and destination vertices of the edge.
+ *
+ * @param <Type> - generic
+ * @author Prof. Parker & Aiden Fornalski & Henry Sippel
+ * @version October 25, 2023
+ */
 public class Edge<Type> {
     private Vertex<Type> source;
     private Vertex<Type> destination;

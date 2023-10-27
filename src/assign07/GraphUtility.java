@@ -14,14 +14,12 @@ import java.util.Scanner;
  */
 public class GraphUtility {
 
-	public static <Type> boolean areConnected(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
-			throws IllegalArgumentException {
+	public static <Type> boolean areConnected(List<Type> sources, List<Type> destinations, Type srcData, Type dstData) throws IllegalArgumentException {
 		Graph<Type> graph = buildGraph(sources, destinations);
 		return graph.areConnected(srcData, dstData);
 	}
 
-	public static <Type> List<Type> shortestPath(List<Type> sources, List<Type> destinations, Type srcData, Type dstData)
-			throws IllegalArgumentException {
+	public static <Type> List<Type> shortestPath(List<Type> sources, List<Type> destinations, Type srcData, Type dstData) throws IllegalArgumentException {
 		Graph<Type> graph = buildGraph(sources, destinations);
 		return graph.shortestPath(srcData, dstData);
 	}
@@ -31,6 +29,14 @@ public class GraphUtility {
 		return graph.topologicalSort();
 	}
 
+	/**
+	 * A helper method that builds a Graph from a list of source vertices and destination vertices..
+	 *
+	 * @param sources - list of source vertices
+	 * @param destinations - list of destination vertices
+	 * @return - a graph in the form of a Graph class
+	 * @param <Type> - generic
+	 */
 	private static <Type> Graph<Type> buildGraph(List<Type> sources, List<Type> destinations) {
 		Graph<Type> graph = new Graph<>();
 		for (int i = 0; i < sources.size(); i++) {

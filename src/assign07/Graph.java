@@ -35,7 +35,6 @@ public class Graph<Type> {
             throw new IllegalArgumentException("Vertex not found in the graph");
         }
 
-        // Use depth-first recursive search to check if vertices are connected
         Set<Type> visited = new HashSet<>();
         return dfs(source, destination, visited);
     }
@@ -54,20 +53,46 @@ public class Graph<Type> {
     }
 
     public List<Type> topologicalSort() {
-        // Implement topological sort
-        List<Type> result = new ArrayList<>();
-        Set<Type> visited = new HashSet<>();
+        Map<Type, Integer> inDegree = new HashMap<>();
+        Queue<Vertex<Type>> queue = new LinkedList<>();
 
         for (Vertex<Type> vertex : vertices.values()) {
-            if (!visited.contains(vertex.getData())) {
-                dfsTopoSort(vertex, visited, result);
+            inDegree.put(vertex.getData(), 0);
+        }
+
+        for (Edge<Type> edge : edges) {
+            Vertex<Type> destination = edge.getDestination();
+            inDegree.put(destination.getData(), inDegree.get(destination.getData()) + 1);
+        }
+
+        for (Vertex<Type> vertex : vertices.values()) {
+            if (inDegree.get(vertex.getData()) == 0) {
+                queue.offer(vertex);
             }
+        }
+
+        List<Type> result = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            Vertex<Type> current = queue.poll();
+            result.add(current.getData());
+
+            for (Edge<Type> edge : getEdgesFromVertex(current)) {
+                Vertex<Type> neighbor = edge.getDestination();
+                inDegree.put(neighbor.getData(), inDegree.get(neighbor.getData()) - 1);
+                if (inDegree.get(neighbor.getData()) == 0) {
+                    queue.offer(neighbor);
+                }
+            }
+        }
+
+        if (result.size() != vertices.size()) {
+            throw new IllegalArgumentException("Graph contains a cycle");
         }
 
         return result;
     }
     private boolean dfs(Vertex<Type> current, Vertex<Type> destination, Set<Type> visited) {
-        if (current.equals(destination)) {
+        if (current.getData().equals(destination.getData())) {
             return true;
         }
 
@@ -108,6 +133,10 @@ public class Graph<Type> {
             }
         }
 
+        if (!visited.contains(destination.getData())) {
+            throw new IllegalArgumentException("No path found between source and destination");
+        }
+
         return parentMap;
     }
 
@@ -124,24 +153,11 @@ public class Graph<Type> {
         return path;
     }
 
-    private void dfsTopoSort(Vertex<Type> current, Set<Type> visited, List<Type> result) {
-        visited.add(current.getData());
-
-        for (Edge<Type> edge : getEdgesFromVertex(current)) {
-            Vertex<Type> neighbor = edge.getDestination();
-            if (!visited.contains(neighbor.getData())) {
-                dfsTopoSort(neighbor, visited, result);
-            }
-        }
-
-        result.add(current.getData());
-    }
-
     private List<Edge<Type>> getEdgesFromVertex(Vertex<Type> vertex) {
         List<Edge<Type>> edgesFromVertex = new ArrayList<>();
 
         for (Edge<Type> edge : edges) {
-            if (edge.getSource().equals(vertex)) {
+            if (edge.getSource().getData().equals(vertex.getData())) {
                 edgesFromVertex.add(edge);
             }
         }

@@ -41,7 +41,7 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
                 size++;
                 return true;
             } else {
-                return addRecursive(node.getLeft(), item);
+                return addRecursive(node.getRight(), item);
             }
         } else {
             return false;

@@ -129,53 +129,44 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
 
     @Override
     public boolean remove(Type item) {
-        return removeRecursive(root, item);
+        BinaryTreeNode<Type> temp = removeRecursive(root, item);
+        if (temp.getData().equals(item)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    private boolean removeRecursive(BinaryTreeNode<Type> node, Type item) {
+    private BinaryTreeNode<Type> removeRecursive(BinaryTreeNode<Type> node, Type item) {
         if (node == null) {
-            return false;
+            return node;
         }
 
         int comparison = item.compareTo(node.getData());
         if (comparison == 0) {
-            if (node.getLeft() == null && node.getRight() == null) {
-                node = null;
-                size--;
-                return true;
-            } else if (node.getLeft() == null && node.getRight() != null) {
-                node = node.getRight();
-                node.setRight(null);
-                size--;
-                return true;
-            } else if (node.getLeft() != null && node.getRight() == null) {
-                node = node.getLeft();
-                node.setLeft(null);
-                size--;
-                return true;
-            } else {
-                BinaryTreeNode<Type> left = node.getLeft();
-                BinaryTreeNode<Type> right = node.getRight();
-                node = findMin(node);
-                if (left != node) {
-                    node.setLeft(left);
-                }
-                node.setRight(right);
-                size--;
-                return true;
+            if (node.getLeft() == null) {
+                return node.getRight();
+            } else if (node.getRight() == null) {
+                return node.getLeft();
             }
+            node.setData(findMin(node.getRight()));
+            node.setRight(removeRecursive(node.getRight(), node.getData()));
+            size--;
         } else if (comparison < 0) {
-            return removeRecursive(node.getLeft(), item);
+            node.setLeft(removeRecursive(node.getLeft(), item));
         } else {
-            return removeRecursive(node.getRight(), item);
-        }
-    }
-
-    private BinaryTreeNode<Type> findMin(BinaryTreeNode<Type> node) {
-        while (node.getLeft() != null) {
-            node = node.getLeft();
+            node.setRight(removeRecursive(node.getRight(), item));
         }
         return node;
+    }
+
+    private Type findMin(BinaryTreeNode<Type> node) {
+        Type min = node.getData();
+        while (node.getLeft() != null) {
+            min = node.getLeft().getData();
+            node = node.getLeft();
+        }
+        return min;
     }
 
     @Override

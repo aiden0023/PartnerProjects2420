@@ -15,6 +15,10 @@ public class BinaryTreeNode<Type extends Comparable<? super Type>> {
         return data;
     }
 
+    public void setData(Type data) {
+        this.data = data;
+    }
+
     public BinaryTreeNode<Type> getLeft() {
         return left;
     }

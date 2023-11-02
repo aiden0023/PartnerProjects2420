@@ -144,6 +144,16 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
                 size--;
                 return true;
             } else if (node.getLeft() == null && node.getRight() != null) {
+                node = node.getRight();
+                node.setRight(null);
+                size--;
+                return true;
+            } else if (node.getLeft() != null && node.getRight() == null) {
+                node = node.getLeft();
+                node.setLeft(null);
+                size--;
+                return true;
+            } else {
                 //more removal logic
                 size--;
                 return true;
@@ -153,7 +163,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
         } else {
             return removeRecursive(node.getRight(), item);
         }
-        return false; //TEMP STATEMENT
+    }
+
+    private BinaryTreeNode<Type> findMin(BinaryTreeNode<Type> node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
     }
 
     @Override

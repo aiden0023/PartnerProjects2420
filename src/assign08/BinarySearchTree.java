@@ -154,7 +154,13 @@ public class BinarySearchTree<Type extends Comparable<? super Type>> implements 
                 size--;
                 return true;
             } else {
-                //more removal logic
+                BinaryTreeNode<Type> left = node.getLeft();
+                BinaryTreeNode<Type> right = node.getRight();
+                node = findMin(node);
+                if (left != node) {
+                    node.setLeft(left);
+                }
+                node.setRight(right);
                 size--;
                 return true;
             }

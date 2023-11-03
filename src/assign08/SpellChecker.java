@@ -10,7 +10,7 @@ import java.util.Scanner;
  * Represents a "dictionary" of strings using a binary search tree and offers
  * methods for spell-checking documents.
  *
- * @author Aaron Wood
+ * @author Aaron Wood, Aiden Fornalski, and Henry Sippel
  * @version 2023-10-26
  */
 public class SpellChecker {
@@ -71,7 +71,6 @@ public class SpellChecker {
 	 * @return a List of misspelled words
 	 */
 	public List<String> spellCheck(File documentFile) {
-
 		List<String> wordsToCheck = readFromFile(documentFile);
 		List<String> misspelled = new ArrayList<>();
 

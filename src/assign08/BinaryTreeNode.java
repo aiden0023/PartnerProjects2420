@@ -1,5 +1,12 @@
 package assign08;
 
+/**
+ * A basic class for a node of a Binary Search Tree.
+ *
+ * @param <Type> - generic
+ * @author Aiden Fornalski and Henry Sippel
+ * @version 2023-11-02
+ */
 public class BinaryTreeNode<Type extends Comparable<? super Type>> {
     private Type data;
     private BinaryTreeNode<Type> left;

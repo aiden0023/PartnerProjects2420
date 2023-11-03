@@ -11,8 +11,11 @@ public class bstTests {
 
     public BinarySearchTree<Integer> smallBST = new BinarySearchTree<>();
     public BinarySearchTree<Integer> emptyBST = new BinarySearchTree<>();
+    public BinarySearchTree<Integer> twoBST = new BinarySearchTree<>();
+    public BinarySearchTree<Integer> tenBST = new BinarySearchTree<>();
     public ArrayList<Integer> smallBSTList = new ArrayList<>();
     public ArrayList<Integer> list = new ArrayList<>();
+    public ArrayList<Integer> tenBSTList = new ArrayList<>();
 
     @BeforeEach
     public void setup() {
@@ -22,6 +25,17 @@ public class bstTests {
         smallBST.add(5);
         smallBST.add(27);
         smallBST.add(16);
+
+        twoBST.add(1);
+        twoBST.add(2);
+
+        for (int i = 1; i < 11; i++) {
+            tenBST.add(i);
+        }
+
+        for (int i = 1; i < 5; i++) {
+            tenBSTList.add(i);
+        }
 
         smallBSTList.add(18);
         smallBSTList.add(7);
@@ -38,8 +52,9 @@ public class bstTests {
 
     @Test
     public void addTest() {
-        smallBST.add(27);
-        assertTrue(smallBST.contains(27));
+        smallBST.add(50);
+        assertTrue(smallBST.contains(50));
+        assertEquals(7, smallBST.size());
     }
 
     @Test
@@ -52,6 +67,15 @@ public class bstTests {
     public void clearTest() {
         smallBST.clear();
         assertTrue(smallBST.isEmpty());
+    }
+
+    @Test
+    public void clearThenRemoveTest() {
+        tenBST.clear();
+        assertTrue(tenBST.isEmpty());
+        ArrayList<Integer> temp = tenBST.toArrayList();
+        assertEquals(0, temp.size());
+        assertFalse(tenBST.remove(5));
     }
 
     @Test
@@ -75,6 +99,14 @@ public class bstTests {
     }
 
     @Test
+    public void isEmpty2SizeTest() {
+        assertFalse(twoBST.isEmpty());
+        twoBST.remove(1);
+        twoBST.remove(2);
+        assertTrue(twoBST.isEmpty());
+    }
+
+    @Test
     public void lastTest() {
         assertEquals(27, smallBST.last());
     }
@@ -83,6 +115,7 @@ public class bstTests {
     public void removeTest() {
         smallBST.remove(20);
         assertFalse(smallBST.contains(20));
+        assertEquals(5, smallBST.size());
     }
 
     @Test
@@ -90,6 +123,16 @@ public class bstTests {
         smallBST.addAll(list);
         smallBST.removeAll(list);
         assertFalse(smallBST.containsAll(list));
+    }
+
+    @Test
+    public void removeAllTenTest() {
+        tenBST.removeAll(tenBSTList);
+        assertEquals(6, tenBST.size());
+        assertFalse(tenBST.contains(1));
+        assertFalse(tenBST.containsAll(tenBSTList));
+        assertEquals(5, tenBST.first());
+        assertEquals(10, tenBST.last());
     }
 
     @Test
